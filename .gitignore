@@ -1,0 +1,8 @@
+node_modules
+dist
+out-tsc
+.angular
+.env
+coverage
+*.log
+apps/api/uploads

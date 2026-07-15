@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id                   String   @id @default(cuid())
+  projectName          String
+  customer             String
+  customerTier         String?
+  projectStatus        String?
+  competency           String?
+  ic                   String?
+  secondaryIc          String?
+  icLead               String?
+  stationName          String?
+  estimatedGoLiveDate  DateTime?
+  integrationType      String?
+  templateName         String?
+  surgeTransferable    Boolean?
+  productDetail        String?
+  jiraTicketNumber     String?
+  developerName        String?
+  engineeringDueDate   DateTime?
+  actionPendingOn      String?
+  engineeringStatus    String?
+  hrSource             String?
+  itsmSource           String?
+  directorySource      String?
+  downstreamApp        String?
+  useCase              String?
+  comment              String?
+  sourceFingerprint    String?
+  riskScore            Int      @default(0)
+  riskLevel            String   @default("Low")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  statusHistory ProjectStatusHistory[]
+
+  @@unique([sourceFingerprint])
+  @@index([customer])
+  @@index([projectStatus])
+  @@index([estimatedGoLiveDate])
+  @@index([ic])
+  @@index([customerTier])
+  @@index([riskLevel])
+}
+
+model ProjectStatusHistory {
+  id             String   @id @default(cuid())
+  projectId      String
+  previousStatus String?
+  newStatus      String?
+  changedBy      String?
+  changedAt      DateTime @default(now())
+  comment        String?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([changedAt])
+}
