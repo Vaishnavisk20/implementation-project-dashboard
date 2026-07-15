@@ -15,7 +15,7 @@ export interface ProjectQuery {
 @Injectable({ providedIn: 'root' })
 export class ProjectApiService {
   private readonly baseUrl = environment.apiUrl;
-  private readonly staticMode = typeof window !== 'undefined' && !['localhost', '127.0.0.1'].includes(window.location.hostname);
+  private readonly staticMode = typeof window !== 'undefined' && window.location.hostname.endsWith('github.io');
   private readonly seedProjects$: Observable<Project[]>;
   private liveProjects?: Project[];
 

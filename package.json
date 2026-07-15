@@ -7,6 +7,8 @@
     "dev:api": "npm --prefix apps/api run dev",
     "dev:web": "npm --prefix apps/web run start",
     "build": "npm --prefix apps/api run build && npm --prefix apps/web run build",
+    "build:deploy": "npm --prefix apps/api run prisma:generate && npm --prefix apps/api run build && npm --prefix apps/web run build",
+    "start:deploy": "npm --prefix apps/api run prisma:migrate:deploy && npm --prefix apps/api run start",
     "lint": "npm --prefix apps/api run lint && npm --prefix apps/web run lint",
     "colima:start": "colima start -f",
     "db:up": "docker compose up -d postgres",
