@@ -1,4 +1,4 @@
-import projectsSeed from './projects.json' assert { type: 'json' };
+import projectsSeed from './projects-data.js';
 
 const state = {
   projects: projectsSeed.map((project) => ({ ...project }))
